@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Configuration;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Net;
 
 namespace FoodiesServer.DAL
 {
@@ -36,8 +37,9 @@ namespace FoodiesServer.DAL
                     string name = reader.GetString("PRODUCT_NAME");
                     int calories = reader.GetInt32("CALORIES");
                     string image = reader.GetString("IMAGE");
+                    string barcode = reader.GetString("BARCODE");
 
-                    Ingredient i = new Ingredient(id,name,calories,image);
+                    Ingredient i = new Ingredient(id,name,calories,image, barcode);
                     lstIngs.Add(i);
                 }
             }
@@ -53,20 +55,33 @@ namespace FoodiesServer.DAL
             return lstIngs;
         }
 
-        public void AddIngridient(Ingredient ing, int userId)
+        public void AddIngridient(string barcode, int userId)
         {
             try
             {
+                Ingredient ing;
                 sqlConnection.Open();
-                sqlCommand.CommandText = "SELECT * FROM products WHERE BARCODE='"+ing.Barcode+"'";
+                sqlCommand.CommandText = "SELECT * FROM products WHERE BARCODE=" + barcode;
                 MySqlDataReader reader = sqlCommand.ExecuteReader();
                 if (!reader.HasRows)
                 {
-                    sqlCommand.CommandText = "INSERT INTO products (ID,PRODUCT_NAME,CALORIES,BARCODE,IMAGE) VALUES(" + ing.Id + ",'" + ing.Name + "'," + ing.Calories + ",'" + ing.Barcode + "','" + ing.PictureUrl + "')";
+                    ing = GetIngridientForBarcode(barcode);
+
+                    sqlCommand.CommandText = "INSERT INTO products (ID,PRODUCT_NAME,CALORIES,BARCODE,IMAGE) VALUES(" + ing.Id + "," + ing.Name + "," + ing.Calories + "," + ing.Barcode + "" + ing.PictureUrl + ")";
                     sqlCommand.ExecuteNonQuery();
                 }
+                else
+                {
+                    reader.Read();
+                    int id = reader.GetInt32("ID");
+                    string name = reader.GetString("PRODUCT_NAME");
+                    int calories = reader.GetInt32("CALORIES");
+                    string image = reader.GetString("IMAGE");
 
-                sqlCommand.CommandText = "INSERT INTO userproducts (PRODUCT_ID, USER_ID) VALUES("+ing.Id+","+userId+")";
+                    ing = new Ingredient(id, name, calories, image, barcode);
+                }
+
+                sqlCommand.CommandText = "INSERT INTO userproducts (PRODUCT_ID, USER_ID) VALUES(" + ing.Id + "," + userId + ")";
                 sqlCommand.ExecuteNonQuery();
             }
             catch { }
@@ -74,6 +89,17 @@ namespace FoodiesServer.DAL
             {
                 sqlConnection.Close();
             }
+        }
+
+        private Ingredient GetIngridientForBarcode(string barcode)
+        {
+            string request_template = "http://www.shufersal.co.il/_layouts/Shufersal_Pages/AutoComplete.aspx?searchText=";
+            string req_text = request_template + barcode;
+
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(req_text);
+
+            var response = req.GetResponse();
+            return new Ingredient(1, "", 1, "", "");
         }
 
         public void AddUser(User usr)
