@@ -25,7 +25,6 @@ body {
     color: #ece3d4;
 }
 
-
 .tooltip {
     position: relative;
     display: inline-block;
@@ -46,15 +45,38 @@ body {
 }
 
 .logobar {
-max-height: -webkit-fill-available !important;
+    max-height: -webkit-fill-available !important;
 }
 
 .productimage {
-    max-width: 50%;
+    object-fit: cover;
+    width: 230px;
+    height: 230px;
 }
 
 addbtn {
-        position: fixed;
+    position: fixed;
     bottom: 0;
     right: 0;
+}
+
+.categorytext {
+    margin-right: 5%;
+    margin-bottom: 1%;
+    width: 10%;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+}
+
+.productimage {
+    object-fit: cover;
+    width: 230px;
+    height: 230px;
+}
+
+.recipeimage {
+    filter: brightness(50%) !important;
 }

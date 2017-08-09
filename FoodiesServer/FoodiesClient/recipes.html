@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>FoodiesClient</title>
+    <link href="css/materialize.css" rel="stylesheet" />
+    <link href="css/default.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
+    <script type="text/javascript" src="js/recipe-example.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo logobar"><img src="images/logo.png" class="bottom-40 logobar" alt="GloriaFood Logo"></a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="sass.html">My Fridge</a></li>
+                <li><a href="badges.html">Find Recipes</a></li>
+                <li><a href="collapsible.html">New Product</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="sass.html">My Fridge</a></li>
+                <li><a href="badges.html">Find Recipes</a></li>
+                <li><a href="collapsible.html">New Product</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="modal2" class="modal">
+        <center>
+            <div class="modal-content">
+                <h4>Categories</h4>
+                <form action="#">
+                    <input type="checkbox" class="filled-in" id="Vegan" checked="checked" />
+                    <label for="Vegan" class="categorytext">Vegan</label>
+                    <input type="checkbox" class="filled-in" id="Sweet" checked="checked" />
+                    <label for="Sweet" class="categorytext">Sweet</label>
+                    <input type="checkbox" class="filled-in" id="Salty" checked="checked" />
+                    <label for="Salty" class="categorytext">Salty</label>
+                    <input type="checkbox" class="filled-in" id="Healthy" checked="checked" />
+                    <label for="Healthy" class="categorytext">Healthy</label>
+
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <center><a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red whitetext">Close</a></center>
+            </div>
+        </center>
+    </div>
+    <div class="container">
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large red modal-trigger" href="#modal2">
+                <i class="large material-icons">filter_list</i>
+            </a>
+        </div>
+        <div class="row"></div>
+
+        <div class="row">
+            <div class="col s3 m3">
+                <div class="card">
+                    <div class="card-image">
+                        <center><img class="productimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC"></center>
+                    </div>
+                    <center>
+                        <div class="card-content">
+                            <span class="card-title">Salad</span>
+                            <p><b>calories:</b> 100</p>
+                            <br>
+                            <!-- Modal Trigger -->
+                            <a class="waves-effect waves-light btn modal-trigger" href="#salad1">Open</a>
+
+                            <!-- Modal Structure -->
+                            <div id="salad1" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                    <center>
+                                        <div class="card">
+                                            <div class="card-image">
+                                                <img class="productimage recipeimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC">
+                                                <span class="card-title">Salad</span>
+                                            </div>
+                                        </div>
+                                    </center>
+
+
+                                    <p>
+                                        <b>Ingredients</b>
+                                        <ul>
+                                            <li>Tomato</li>
+                                            <li>Cucumber</li>
+                                            <li>Onion</li>
+                                        </ul>
+                                    </p>
+                                    <p>
+                                        <b>Procedure</b>
+                                        
+                                        <br><br>
+                                        Cut all
+                                        <br> Put all in bowl
+                                        <br> Mix
+                                        <br>
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red whitetext">Close</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </center>
+                </div>
+            </div>
+            <div class="col s3 m3">
+                <div class="card">
+                    <div class="card-image">
+                        <center><img class="productimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC"></center>
+                    </div>
+                    <center>
+                        <div class="card-content">
+                            <span class="card-title">Salad</span>
+                            <p><b>calories:</b> 100</p>
+                            <br>
+                            <!-- Modal Trigger -->
+                            <a class="waves-effect waves-light btn modal-trigger" href="#salad2">Open</a>
+
+                            <!-- Modal Structure -->
+                            <div id="salad2" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                    <center>
+                                        <div class="card">
+                                            <div class="card-image">
+                                                <img class="productimage recipeimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC">
+                                                <span class="card-title">Salad</span>
+                                            </div>
+                                        </div>
+                                    </center>
+
+
+                                    <p>
+                                        <b>Ingredients</b>
+                                        <ul>
+                                            <li>Tomato</li>
+                                            <li>Cucumber</li>
+                                            <li>Onion</li>
+                                        </ul>
+                                    </p>
+                                    <p>
+                                        <b>Procedure</b>
+                                        
+                                        <br><br>
+                                        Cut all
+                                        <br> Put all in bowl
+                                        <br> Mix
+                                        <br>
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red whitetext">Close</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </center>
+                </div>
+            </div>
+            <div class="col s3 m3">
+                <div class="card">
+                    <div class="card-image">
+                        <center><img class="productimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC"></center>
+                    </div>
+                    <center>
+                        <div class="card-content">
+                            <span class="card-title">Salad</span>
+                            <p><b>calories:</b> 100</p>
+                            <br>
+                            <!-- Modal Trigger -->
+                            <a class="waves-effect waves-light btn modal-trigger" href="#salad3">Open</a>
+
+                            <!-- Modal Structure -->
+                            <div id="salad3" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                    <center>
+                                        <div class="card">
+                                            <div class="card-image">
+                                                <img class="productimage recipeimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC">
+                                                <span class="card-title">Salad</span>
+                                            </div>
+                                        </div>
+                                    </center>
+
+
+                                    <p>
+                                        <b>Ingredients</b>
+                                        <ul>
+                                            <li>Tomato</li>
+                                            <li>Cucumber</li>
+                                            <li>Onion</li>
+                                        </ul>
+                                    </p>
+                                    <p>
+                                        <b>Procedure</b>
+                                        
+                                        <br><br>
+                                        Cut all
+                                        <br> Put all in bowl
+                                        <br> Mix
+                                        <br>
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red whitetext">Close</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </center>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
