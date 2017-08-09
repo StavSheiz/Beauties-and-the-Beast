@@ -1,5 +1,25 @@
-﻿body {
-  /* Uncomment this to enable scrolling and zooming
-  touch-action: manipulation;
-  */
+﻿html {
+    /* This image will be displayed fullscreen */
+    background: url('http://i.imgur.com/iyW6P7V.jpg') no-repeat center center;
+    /* Ensure the html element always takes up the full height of the browser window */
+    min-height: 100%;
+    /* The Magic */
+    background-size: cover;
+}
+
+body {
+    /* Workaround for some mobile browsers */
+    max-height: 100%;
+}
+
+.logo {
+    max-height: 300px;
+}
+
+.welcometext {
+    color: #ece3d4;
+}
+
+.registerwindow {
+    background: rgba(2, 2, 2, 0.41);
 }
