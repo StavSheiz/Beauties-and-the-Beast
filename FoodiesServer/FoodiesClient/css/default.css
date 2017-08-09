@@ -13,13 +13,15 @@ body {
 }
 
 .logo {
-    max-height: 300px;
+    max-height: 200px;
 }
 
-.welcometext {
+.whitetext {
     color: #ece3d4;
 }
 
-.registerwindow {
+.darkbox {
     background: rgba(2, 2, 2, 0.41);
+    color: #ece3d4;
 }
+
