@@ -17,7 +17,7 @@ namespace FoodiesServer.DAL
 
         public FoodiesDAL()
         {
-            ConnectionString = WebConfigurationManager.AppSettings["ConnectionStrings"];
+            ConnectionString = "Server=foodiesmysql.citoxtcog7i3.us-east-2.rds.amazonaws.com;Port=3306;Database=foodies;uid=admin;password=Aa123456;charset=utf8";
             sqlConnection = new MySqlConnection(ConnectionString);
             sqlCommand = new MySqlCommand("" , sqlConnection);
         }
@@ -67,7 +67,28 @@ namespace FoodiesServer.DAL
 
         public List<RecepieCatgory> GetAllCategories()
         {
-            return null;
+            RecepieCatgory cat = null;
+            List<RecepieCatgory> lstCat = new List<RecepieCatgory>();
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.CommandText = "SELECT ID, CATEGORY_NAME FROM categories";
+                MySqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32("ID");
+                    string name = reader.GetString("CATEGORY_NAME");
+
+                    cat = new RecepieCatgory(id, name);
+                    lstCat.Add(cat);
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            return lstCat;
         }
     }
 }
