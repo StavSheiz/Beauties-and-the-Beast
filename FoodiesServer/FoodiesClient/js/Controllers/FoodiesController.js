@@ -16,6 +16,9 @@ angular.module('foodiesController', []).controller('foodiesController', function
 
     // Scope functions
 
+    $scope.initModals = function () {
+        $('.modal').modal();
+    }
     $scope.getAllIngredients = function () {
         //if ($scope.currentUser) {
          //   foodiesService.GetIngredientsService($scope.currentUser.Id).then(function(data){
@@ -37,13 +40,13 @@ angular.module('foodiesController', []).controller('foodiesController', function
 
     $scope.getRecepiesByFilter = function () {
         foodiesService.GetRecepiesService($scope.currentFilter, $scope.currentSort).then(function(data){
-            $scope.currentRecepies = data;
+            $scope.currentRecepies = data.data;
         });
     }
 
     $scope.getAllCategories = function () {
         foodiesService.GetCategoriesService().then(function(data){
-            $scope.categories = data;
+            $scope.categories = data.data;
         });
     }
 
@@ -58,6 +61,12 @@ angular.module('foodiesController', []).controller('foodiesController', function
     $scope.addIngredient = function () {
         foodiesService.AddIngredientService().then(function(){
             $scope.getAllIngredients();
+        });
+    }
+
+    $scope.getRecepieIngs = function (recepieId) {
+        foodiesService.GetRecepieIngs(recepieId).then(function(data){
+            $scope.recepieIngs = data;
         });
     }
     

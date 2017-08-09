@@ -15,7 +15,7 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
         return $http({
             url: 'http://localhost:63236/Foodies/GetRecepies', 
             method: "GET",
-            params: {CategotyId:categoryID, Sort:sort}
+            params: {CategoryId:-1, Sort:false}
         });
   }
      
@@ -46,5 +46,13 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
       
        this.GetCategoriesService = function(){        
         return ($http.get('http://localhost:63236/Foodies/GetAllCategories'));
+   }
+
+   this.GetRecepieIngs = function(recepieId){
+        return $http({
+            url: 'http://localhost:63236/Foodies/GetAllRecepieIngs', 
+            method: "GET",
+            params: {recepieId: recepieId}
+        });
    }
 }]);
