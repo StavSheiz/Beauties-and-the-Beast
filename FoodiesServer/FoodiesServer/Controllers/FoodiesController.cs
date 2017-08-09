@@ -52,7 +52,7 @@ namespace FoodiesServer.Contollers
         }
 
         [HttpGet]
-        public List<RecepieCatgory> GetAllCategories()
+        public IEnumerable<RecepieCatgory> GetAllCategories()
         {
             return dal.GetAllCategories();
         }
