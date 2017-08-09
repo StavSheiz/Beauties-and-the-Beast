@@ -30,5 +30,7 @@ namespace FoodiesServer.Models
         public int Calories { get; set; }
         [DataMember]
         public string PictureUrl { get; set; }
+        [DataMember]
+        public string Barcode { get; set; }
     }
 }

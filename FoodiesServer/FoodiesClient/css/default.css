@@ -25,3 +25,22 @@ body {
     color: #ece3d4;
 }
 
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: visible;
+    width: 120px;
+    background-color: rgba(2, 2, 2, 0.5);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

@@ -24,17 +24,71 @@ namespace FoodiesServer.DAL
 
         public List<Ingredient> GetAllIngredients(int UserId)
         {
-            return null;
+            List<Ingredient> lstIngs = new List<Ingredient>();
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM userproducts WHERE USER_ID=" + UserId + ")";
+                MySqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32("ID");
+                    string name = reader.GetString("PRODUCT_NAME");
+                    int calories = reader.GetInt32("CALORIES");
+                    string image = reader.GetString("IMAGE");
+
+                    Ingredient i = new Ingredient(id,name,calories,image);
+                    lstIngs.Add(i);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return lstIngs;
         }
 
         public void AddIngridient(Ingredient ing, int userId)
         {
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.CommandText = "SELECT * FROM products WHERE BARCODE="+ing.Barcode;
+                MySqlDataReader reader = sqlCommand.ExecuteReader();
+                if (!reader.HasRows)
+                {
+                    sqlCommand.CommandText = "INSERT INTO products (ID,PRODUCT_NAME,CALORIES,BARCODE,IMAGE) VALUES(" + ing.Id + "," + ing.Name + "," + ing.Calories + "," + ing.Barcode + "" + ing.PictureUrl + ")";
+                    sqlCommand.ExecuteNonQuery();
+                }
 
+                sqlCommand.CommandText = "INSERT INTO userproducts (PRODUCT_ID, USER_ID) VALUES("+ing.Id+","+userId+")";
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch { }
+            finally
+            {
+                sqlConnection.Close();
+            }
         }
 
         public void AddUser(User usr)
         {
-            
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.CommandText = "INSERT INTO users (ID,USER_NAME,USER_PASSWORD) VALUES(" + usr.Id + "," + usr.Name + "," + usr.Password + ")";
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch { }
+            finally
+            {
+                sqlConnection.Close();
+            }
         }
 
         public User AttemptLogin(User usr) {
@@ -56,13 +110,42 @@ namespace FoodiesServer.DAL
                 }
             }
             catch{ }
+            finally
+            {
+                sqlConnection.Close();
+            }
 
             return u;
         }
 
         public List<Recepie> GetRecepiesByFilter(RecepieFilter filter)
         {
-            return null;
+            List<Recepie> lstRes = new List<Recepie>();
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.CommandText = "SELECT ID, RECEPY_NAME, RECEPY_TEXT FROM recepies WHERE ID IN (SELECT RECEPIE_ID FROM recepiecategories WHERE CATEGORY_ID=" + filter.FilterByCategory + ")";
+                MySqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32("ID");
+                    string name = reader.GetString("RECEPY_NAME");
+                    string text = reader.GetString("RECEPY_TEXT");
+
+                    Recepie res = new Recepie(id,name,text);
+                    lstRes.Add(res);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return lstRes;
         }
 
         public List<RecepieCatgory> GetAllCategories()
@@ -83,9 +166,12 @@ namespace FoodiesServer.DAL
                     lstCat.Add(cat);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
+            }
+            finally {
+                sqlConnection.Close();
             }
 
             return lstCat;
