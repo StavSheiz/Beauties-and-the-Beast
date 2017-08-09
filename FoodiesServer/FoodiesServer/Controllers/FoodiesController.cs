@@ -18,19 +18,19 @@ namespace FoodiesServer.Contollers
             dal = new FoodiesDAL();
         }
 
-        [HttpPost]
+        [HttpGet]
         public List<Ingredient> GetAllIngredients(int UserId) {
             return dal.GetAllIngredients(UserId);
         }
 
-        [HttpPost]
+        [HttpGet]
         public List<Recepie> GetRecepies(int CategoryId, bool Sort)
         {
             RecepieFilter filter = new RecepieFilter(CategoryId, Sort);
             return dal.GetRecepiesByFilter(filter);
         }
 
-        [HttpPost]
+        [HttpGet]
         public User AttemptLogin(string userName, string password)
         {
             User u = new User(userName, password);

@@ -58,11 +58,11 @@ namespace FoodiesServer.DAL
             try
             {
                 sqlConnection.Open();
-                sqlCommand.CommandText = "SELECT * FROM products WHERE BARCODE="+ing.Barcode;
+                sqlCommand.CommandText = "SELECT * FROM products WHERE BARCODE='"+ing.Barcode+"'";
                 MySqlDataReader reader = sqlCommand.ExecuteReader();
                 if (!reader.HasRows)
                 {
-                    sqlCommand.CommandText = "INSERT INTO products (ID,PRODUCT_NAME,CALORIES,BARCODE,IMAGE) VALUES(" + ing.Id + "," + ing.Name + "," + ing.Calories + "," + ing.Barcode + "" + ing.PictureUrl + ")";
+                    sqlCommand.CommandText = "INSERT INTO products (ID,PRODUCT_NAME,CALORIES,BARCODE,IMAGE) VALUES(" + ing.Id + ",'" + ing.Name + "'," + ing.Calories + ",'" + ing.Barcode + "','" + ing.PictureUrl + "')";
                     sqlCommand.ExecuteNonQuery();
                 }
 
@@ -81,10 +81,10 @@ namespace FoodiesServer.DAL
             try
             {
                 sqlConnection.Open();
-                sqlCommand.CommandText = "INSERT INTO users (ID,USER_NAME,USER_PASSWORD) VALUES(" + usr.Id + "," + usr.Name + "," + usr.Password + ")";
+                sqlCommand.CommandText = "INSERT INTO users (USER_NAME,USER_PASSWORD) VALUES("+usr.Name + ",'" + usr.Password + "')";
                 sqlCommand.ExecuteNonQuery();
             }
-            catch { }
+            catch(Exception ex) { }
             finally
             {
                 sqlConnection.Close();
@@ -97,7 +97,7 @@ namespace FoodiesServer.DAL
             try
             {
                 sqlConnection.Open();
-                sqlCommand.CommandText = "SELECT ID, USER_NAME, USER_PASSWORD FROM users WHERE USER_NAME=" + usr.Name + " AND USER_PASSWORD=" + usr.Password;
+                sqlCommand.CommandText = "SELECT ID, USER_NAME, USER_PASSWORD FROM users WHERE USER_NAME='" + usr.Name + "' AND USER_PASSWORD='" + usr.Password +"'";
                 MySqlDataReader reader = sqlCommand.ExecuteReader();
                 if (reader.HasRows)
                 {

@@ -1,14 +1,30 @@
 angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', function ($http, $q) {
     this.GetIngredientsService = function(userID){
-      return $http({ method: 'POST', url: 'http://localhost/Foodies/AddIngredient', UserID: userID});
+      return $http({
+            url: 'http://localhost:63236/Foodies/AddIngredient', 
+            method: "GET",
+            params: {UserID: userID}
+        });
     }
     
      this.GetRecepiesService = function(categoryID, sort){
-      return $http({ method: 'POST', url: 'http://localhost/Foodies/GetRecepies', CategotyId:categoryID, Sort:sort});
+        return $http({
+            url: 'http://localhost:63236/Foodies/GetRecepies', 
+            method: "GET",
+            params: {CategotyId:categoryID, Sort:sort}
+        });
   }
      
      this.ConnectUserService = function(UserName, Password){
-      return $http({ method: 'POST', url: 'http://localhost/Foodies/AttemptLogin', userName:UserName, password:Password});
+        var dataObj = {
+            userName : UserName,
+            password : Password
+        };
+        return $http({
+            url: 'http://localhost:63236/Foodies/AttemptLogin', 
+            method: "GET",
+            params: {userName: UserName, password: Password}
+        });
   }
      this.AddUserService = function(UserName, Password){
       return $http.put('http://localhost:63236/Foodies/AddUser',                                     
@@ -18,19 +34,13 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
     }
      
       this.AddIngredientService = function(ID, Name, PictureURL, Calories, UserID){
-      $http.put('http://localhost/Foodies/AddIngredient',                                     
+      $http.put('http://localhost:63236/Foodies/AddIngredient',                                     
           {},                                          
           { params: { id: ID, name: Name, pictureUrl: PictureURL, calories: Calories, userId: UserID} }   
        );
     }
       
-       this.GetCategoriesService = function(){
-  //    return $http({ method: 'GET', url: 'http://localhost/Foodies/GetAllCategories');
- //       );
-                    
-        return ($http.get('http://localhost/Foodies/GetAllCategories')).then(function (response, status) {
-            // The return value gets picked up by the then in the controller.
-            return $q.resolve(response.data);
-        });
+       this.GetCategoriesService = function(){        
+        return ($http.get('http://localhost:63236/Foodies/GetAllCategories'));
    }
 }]);
