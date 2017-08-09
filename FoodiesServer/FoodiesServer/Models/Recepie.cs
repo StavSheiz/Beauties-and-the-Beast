@@ -22,6 +22,6 @@ namespace FoodiesServer.Models
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string Text { get => text; set => text = value; }
-        public List<Ingredient> ingredients { get => ingredients; set => ingredients = value; }
+        public List<Ingredient> Ingredients { get => ingredients; set => ingredients = value; }
     }
 }
