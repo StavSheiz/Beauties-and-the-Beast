@@ -1,13 +1,9 @@
-foodiesApp.controller('foodiesController', ['$scope', '$q', 'foodiesService', function($scope, $q, foodiesService) {
+angular.module('foodiesController', []).controller('foodiesController', function($scope, $q, foodiesService) {
 
     // App section
     $scope.currentUser = null;
     $scope.allIngredients = [];
     $scope.currentPage = 0;
-
-    // Login page
-    $scope.loginName = '';
-    $scope.loginPassword = '';
 
     // Register page
     $scope.registerName = '';
@@ -23,7 +19,7 @@ foodiesApp.controller('foodiesController', ['$scope', '$q', 'foodiesService', fu
 
     $scope.getAllIngredients = function () {
         if ($scope.currentUser) {
-            foodiesService.GetIngredientsService.Ingredients($scope.currentUser.Id).then(function(data){
+            foodiesService.GetIngredientsService($scope.currentUser.Id).then(function(data){
                 $scope.allIngredients = data;
                 $scope.currentPage = 2;
             });
@@ -31,8 +27,8 @@ foodiesApp.controller('foodiesController', ['$scope', '$q', 'foodiesService', fu
     }
 
     $scope.attemptLogin = function () {
-        if ($scope.loginName.length > 0 && $scope.loginPassword.length > 0) {
-            foodiesService.ConnectUserService.User($scope.loginName, $scope.loginPassword).then(function(data){
+        if ($scope.registerName.length > 0 && $scope.registerPassword.length > 0) {
+            foodiesService.ConnectUserService($scope.registerName, $scope.registerPassword).then(function(data){
                 if (data) {
                     $scope.currentUser = data;
                     $scope.currentPage = 1;
@@ -42,28 +38,28 @@ foodiesApp.controller('foodiesController', ['$scope', '$q', 'foodiesService', fu
     }
 
     $scope.getRecepiesByFilter = function () {
-        foodiesService.v.Recepie($scope.currentFilter, $scope.currentSort).then(function(data){
+        foodiesService.GetRecepiesService($scope.currentFilter, $scope.currentSort).then(function(data){
             $scope.currentRecepies = data;
             $scope.currentPage = 3;
         });
     }
 
     $scope.getAllCategories = function () {
-        foodiesService.GetCategoriesService.Categoty().then(function(data){
+        foodiesService.GetCategoriesService().then(function(data){
             $scope.categories = data;
         });
     }
 
     $scope.addUser = function () {
         if($scope.registerName.length > 0 && $scope.registerPassword.length > 0) {
-            foodiesService.AddUserService.User($scope.registerName, $scope.registerPassword).then(function(data){
+            foodiesService.AddUserService($scope.registerName, $scope.registerPassword).then(function(data){
                 $scope.attemptLogin($scope.registerName, $scope.registerPassword);
             });
         }
     }
 
     $scope.addIngredient = function () {
-        foodiesService.AddIngredientService.Ingredient().then(function(){
+        foodiesService.AddIngredientService().then(function(){
             $scope.getAllIngredients();
         });
     }
@@ -72,4 +68,5 @@ foodiesApp.controller('foodiesController', ['$scope', '$q', 'foodiesService', fu
     // Controller init
 
     $scope.getAllCategories();
-}]);
+    
+});

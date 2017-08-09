@@ -1,1 +1,4 @@
-var foodiesApp = angular.module('foodiesApp',[]);
+var foodiesApp = angular.module('foodiesApp',[
+    'foodiesService',
+    'foodiesController'
+]);
