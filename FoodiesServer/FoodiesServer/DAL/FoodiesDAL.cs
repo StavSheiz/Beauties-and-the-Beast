@@ -53,6 +53,37 @@ namespace FoodiesServer.DAL
             return lstIngs;
         }
 
+        internal List<Ingredient> GetAllRecepieIngs(int recepieId)
+        {
+            List<Ingredient> lstIngs = new List<Ingredient>();
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM recepyproducts WHERE RECEPY_ID=" + recepieId + ")";
+                MySqlDataReader reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32("ID");
+                    string name = reader.GetString("PRODUCT_NAME");
+                    int calories = reader.GetInt32("CALORIES");
+                    string image = reader.GetString("IMAGE");
+
+                    Ingredient i = new Ingredient(id,name,calories,image);
+                    lstIngs.Add(i);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return lstIngs;
+        }
+
         public void AddIngridient(Ingredient ing, int userId)
         {
             try
@@ -124,15 +155,23 @@ namespace FoodiesServer.DAL
             try
             {
                 sqlConnection.Open();
-                sqlCommand.CommandText = "SELECT ID, RECEPY_NAME, RECEPY_TEXT FROM recepies WHERE ID IN (SELECT RECEPIE_ID FROM recepiecategories WHERE CATEGORY_ID=" + filter.FilterByCategory + ")";
+                string where = "recepiecalory.RECEPY_ID = recepies.ID";
+                if (filter.FilterByCategory != -1) {
+                    where += " AND recepies.ID IN (SELECT RECEPIE_ID FROM recepiecategories WHERE CATEGORY_ID=" + filter.FilterByCategory + ")";
+                }
+                sqlCommand.CommandText = "SELECT recepies.ID, recepies.RECEPY_NAME, recepies.RECEPY_TEXT, recepies.IMAGE, recepiecalory.RECEPY_SUM FROM recepies,recepiecalory WHERE "+ where;
                 MySqlDataReader reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
                     int id = reader.GetInt32("ID");
                     string name = reader.GetString("RECEPY_NAME");
                     string text = reader.GetString("RECEPY_TEXT");
+                    string pictureUrl = reader.GetString("IMAGE");
+                    int cals = reader.GetInt32("RECEPY_SUM");
 
                     Recepie res = new Recepie(id,name,text);
+                    res.Calories = cals;
+                    res.pictureUrl = pictureUrl;
                     lstRes.Add(res);
                 }
             }

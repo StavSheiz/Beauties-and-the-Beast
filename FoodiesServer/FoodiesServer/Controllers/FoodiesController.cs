@@ -56,5 +56,11 @@ namespace FoodiesServer.Contollers
         {
             return dal.GetAllCategories();
         }
+
+        [HttpGet]
+        public List<Ingredient> GetAllRecepieIngs(int recepieId)
+        {
+            return dal.GetAllRecepieIngs(recepieId);
+        }
     }
 }
