@@ -44,3 +44,17 @@ body {
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.logobar {
+max-height: -webkit-fill-available !important;
+}
+
+.productimage {
+    max-width: 50%;
+}
+
+addbtn {
+        position: fixed;
+    bottom: 0;
+    right: 0;
+}
