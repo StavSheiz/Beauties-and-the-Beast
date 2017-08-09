@@ -1,1 +1,1 @@
-var foodies = angular.module('foodiesApp',[]);
+var foodiesApp = angular.module('foodiesApp',[]);

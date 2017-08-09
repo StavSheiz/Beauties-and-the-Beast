@@ -38,5 +38,10 @@ namespace FoodiesServer.DAL
         {
             return null;
         }
+
+        public List<RecepieCatgory> GetAllCategories()
+        {
+            return null;
+        }
     }
 }

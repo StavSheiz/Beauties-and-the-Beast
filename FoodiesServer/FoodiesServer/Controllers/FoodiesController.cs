@@ -50,5 +50,11 @@ namespace FoodiesServer.Contollers
             Ingredient ing = new Ingredient(id, name, calories, pictureUrl);
             dal.AddIngridient(ing, userId);
         }
+
+        [HttpGet]
+        public List<RecepieCatgory> GetAllCategories()
+        {
+            return dal.GetAllCategories();
+        }
     }
 }
