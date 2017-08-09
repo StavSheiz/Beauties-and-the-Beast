@@ -1,5 +1,0 @@
--emitAnyForUnresolvedTypes
--outFilePath
-c:\gitprojs\beautiesandthebeast\foodiesserver\foodiesclient\bld\debug\winrtrefs\winrtrefs-temp.d.ts
--emitDocumentation
--suppressWarningsForUnresolvedWindowsTypes
