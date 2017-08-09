@@ -1,0 +1,1 @@
+var foodies = angular.module('foodiesApp',[]);
