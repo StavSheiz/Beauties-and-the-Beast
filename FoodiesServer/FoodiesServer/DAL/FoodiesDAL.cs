@@ -30,8 +30,8 @@ namespace FoodiesServer.DAL
             
         }
 
-        public bool AttemptLogin(User usr) {
-            return false;
+        public User AttemptLogin(User usr) {
+            return null;
         }
 
         public List<Recepie> GetRecepiesByFilter(RecepieFilter filter)

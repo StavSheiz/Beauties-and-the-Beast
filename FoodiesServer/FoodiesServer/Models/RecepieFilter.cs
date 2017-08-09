@@ -7,16 +7,16 @@ namespace FoodiesServer.Models
 {
     public class RecepieFilter
     {
-        private RecepieCatgory filterByCategory;
+        private int filterByCategoryId;
         private bool sortByCalories;
 
-        public RecepieFilter(RecepieCatgory filter, bool sort)
+        public RecepieFilter(int filter, bool sort)
         {
             this.FilterByCategory = filter;
             this.SortByCalories = sort;
         }
 
-        public RecepieCatgory FilterByCategory { get => filterByCategory; set => filterByCategory = value; }
+        public int FilterByCategory { get => filterByCategoryId; set => filterByCategoryId = value; }
         public bool SortByCalories { get => sortByCalories; set => sortByCalories = value; }
     }
 }
