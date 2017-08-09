@@ -34,3 +34,8 @@ foodiesApp.factory('AddIngredientService', ['$http', function ($http) {
     }
 }]);
 
+foodiesApp.factory('GetCategoriesService', ['$http', function ($http) {
+    this.Category = function(){
+      return $http({ method: 'GET', url: 'http://localhost/GetAllCategories');
+  }
+}]);
