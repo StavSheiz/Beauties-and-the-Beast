@@ -20,19 +20,21 @@ namespace FoodiesServer.Contollers
 
         [HttpPost]
         public List<Ingredient> GetAllIngredients(int UserId) {
-            return null;
+            return dal.GetAllIngredients(UserId);
         }
 
         [HttpPost]
-        public List<Recepie> GetRecepies(int categoryId, bool Sort)
+        public List<Recepie> GetRecepies(int CategoryId, bool Sort)
         {
-            return null;
+            RecepieFilter filter = new RecepieFilter(CategoryId, Sort);
+            return dal.GetRecepiesByFilter(filter);
         }
 
         [HttpPost]
-        public bool AttemptLogin(string userName, string password)
+        public User AttemptLogin(string userName, string password)
         {
-            return false;
+            User u = new User(userName, password);
+            return dal.AttemptLogin(u);
         }
 
         [HttpPut]
