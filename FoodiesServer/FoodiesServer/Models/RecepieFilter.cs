@@ -16,7 +16,7 @@ namespace FoodiesServer.Models
             this.SortByCalories = sort;
         }
 
-        public int FilterByCategory { get => filterByCategoryId; set => filterByCategoryId = value; }
-        public bool SortByCalories { get => sortByCalories; set => sortByCalories = value; }
+        public int FilterByCategory { get; set; }
+        public bool SortByCalories { get; set; }
     }
 }

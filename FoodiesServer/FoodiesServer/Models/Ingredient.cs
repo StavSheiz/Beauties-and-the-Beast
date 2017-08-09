@@ -20,9 +20,9 @@ namespace FoodiesServer.Models
             this.PictureUrl = pictureUrl;
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
-        public int Calories { get => calories; set => calories = value; }
-        public string PictureUrl { get => pictureUrl; set => pictureUrl = value; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Calories { get; set; }
+        public string PictureUrl { get; set; }
     }
 }

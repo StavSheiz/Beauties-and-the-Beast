@@ -19,6 +19,7 @@ namespace FoodiesServer.DAL
         {
             ConnectionString = WebConfigurationManager.AppSettings["ConnectionStrings"];
             sqlConnection = new MySqlConnection(ConnectionString);
+            sqlCommand = new MySqlCommand("" , sqlConnection);
         }
 
         public List<Ingredient> GetAllIngredients(int UserId)
@@ -37,7 +38,26 @@ namespace FoodiesServer.DAL
         }
 
         public User AttemptLogin(User usr) {
-            return null;
+            User u = null;
+
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.CommandText = "SELECT ID, USER_NAME, USER_PASSWORD FROM users WHERE USER_NAME=" + usr.Name + " AND USER_PASSWORD=" + usr.Password;
+                MySqlDataReader reader = sqlCommand.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    int id = reader.GetInt32("ID");
+                    string name = reader.GetString("USER_NAME");
+                    string password = reader.GetString("USER_PASSWORD");
+
+                    u = new User(name, id, password);
+                }
+            }
+            catch{ }
+
+            return u;
         }
 
         public List<Recepie> GetRecepiesByFilter(RecepieFilter filter)

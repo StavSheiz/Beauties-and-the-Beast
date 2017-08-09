@@ -25,9 +25,9 @@ namespace FoodiesServer.Models
             this.Password = password;
         }
 
-        public int Id { get => Id; set => Id = value; }
-        public string Name { get => name; set => name = value; }
-        public string Password { get => password; set => password = value; }
-        public List<Ingredient> Ingredients { get => ingredients; set => ingredients = value; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
     }
 }
