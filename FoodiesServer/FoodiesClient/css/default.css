@@ -1,20 +1,25 @@
-﻿html{
-	/* This image will be displayed fullscreen */
-	background:url('http://i.imgur.com/iyW6P7V.jpg') no-repeat center center;
-
-	/* Ensure the html element always takes up the full height of the browser window */
-	min-height:100%;
-
-	/* The Magic */
-	background-size:cover;
+﻿html {
+    /* This image will be displayed fullscreen */
+    background: url('http://i.imgur.com/iyW6P7V.jpg') no-repeat center center;
+    /* Ensure the html element always takes up the full height of the browser window */
+    min-height: 100%;
+    /* The Magic */
+    background-size: cover;
 }
-body{
-	/* Workaround for some mobile browsers */
-	max-height:100%;
+
+body {
+    /* Workaround for some mobile browsers */
+    max-height: 100%;
 }
-.logo{
+
+.logo {
     max-height: 300px;
 }
-.welcometext{
+
+.welcometext {
     color: #ece3d4;
+}
+
+.registerwindow {
+    background: rgba(2, 2, 2, 0.41);
 }
