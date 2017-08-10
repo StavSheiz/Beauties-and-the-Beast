@@ -13,13 +13,15 @@ namespace FoodiesServer.Models
         private string name;
         private int calories;
         private string pictureUrl;
+        private string barcode;
 
-        public Ingredient(int id, string name, int calories, string pictureUrl)
+        public Ingredient(int id, string name, int calories, string pictureUrl, string barcode)
         {
             this.Id = id;
             this.Name = name;
             this.Calories = calories;
             this.PictureUrl = pictureUrl;
+            this.Barcode = barcode;
         }
 
         [DataMember]

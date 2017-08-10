@@ -1,9 +1,13 @@
 angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', function ($http, $q) {
     this.GetIngredientsService = function(userID){
       return $http({
-            url: 'http://localhost:63236/Foodies/AddIngredient', 
+            url: 'http://localhost:63236/Foodies/GetAllIngredients', 
             method: "GET",
-            params: {UserID: userID}
+            params: {UserId: userID}
+      })
+        .then(function (response, status) {
+            // The return value gets picked up by the then in the controller.
+            return $q.resolve(response);
         });
     }
     
@@ -36,10 +40,10 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
        );
     }
      
-      this.AddIngredientService = function(ID, Name, PictureURL, Calories, UserID){
+      this.AddIngredientService = function(barcode){
       $http.put('http://localhost:63236/Foodies/AddIngredient',                                     
           {},                                          
-          { params: { id: ID, name: Name, pictureUrl: PictureURL, calories: Calories, userId: UserID} }   
+          { params: { barcode: barcode} }   
        );
     }
       
