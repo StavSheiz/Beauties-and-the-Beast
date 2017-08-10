@@ -29,7 +29,7 @@ namespace FoodiesServer.DAL
             try
             {
                 sqlConnection.Open();
-                sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM userproducts WHERE USER_ID=" + UserId + ")";
+                sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE, BARCODE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM userproducts WHERE USER_ID=" + UserId + ")";
                 MySqlDataReader reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
@@ -94,7 +94,7 @@ namespace FoodiesServer.DAL
 
         private Ingredient GetIngridientForBarcode(string barcode)
         {
-            string request_template = "http://www.shufersal.co.il/_layouts/Shufersal_Pages/AutoComplete.aspx?searchText=";
+            string request_template = "http://www.shufersal.co.il/layouts/Shufersal_Pages/ajax.aspx?searchText=";
             string req_text = request_template + barcode;
 
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(req_text);
