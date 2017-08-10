@@ -40,7 +40,7 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
        );
     }
      
-      this.AddIngredientService = function(barcode){
+      this.AddIngredientService = function(barcode, userId){
       $http.put('http://localhost:63236/Foodies/AddIngredient',                                     
           {},                                          
           { params: { barcode: barcode} }   

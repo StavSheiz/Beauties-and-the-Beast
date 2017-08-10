@@ -1,6 +1,7 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
 /FoodiesServer/FoodiesServer/obj/Debug
 /FoodiesServer/FoodiesServer/bin
+FoodiesServer/.vs/config/applicationhost.config

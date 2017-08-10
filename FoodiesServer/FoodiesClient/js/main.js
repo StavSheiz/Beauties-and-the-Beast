@@ -51,7 +51,7 @@ foodiesApp.controller("scannerController", ['$scope', 'foodiesService', function
             });
             scannedImg.src = res.imgData;
             scannedQR[txt] = res.code;
-            $.ajax
+            foodiesService.AddIngredientService(scannedQR[txt]);
         },
         getDevicesError: function(error) {
             var p, message = "Error detected with the following parameters:\n";
