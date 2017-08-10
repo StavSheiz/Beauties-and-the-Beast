@@ -157,7 +157,7 @@ namespace FoodiesServer.DAL
                 sqlConnection.Open();
                 string where = "recepiecalory.RECEPY_ID = recepies.ID";
                 if (filter.FilterByCategory != -1) {
-                    where += " AND recepies.ID IN (SELECT RECEPIE_ID FROM recepiecategories WHERE CATEGORY_ID=" + filter.FilterByCategory + ")";
+                    where += " AND recepies.ID IN (SELECT RECEPY_ID FROM recepycategory WHERE CATEGORY_ID=" + filter.FilterByCategory + ")";
                 }
                 sqlCommand.CommandText = "SELECT recepies.ID, recepies.RECEPY_NAME, recepies.RECEPY_TEXT, recepies.IMAGE, recepiecalory.RECEPY_SUM FROM recepies,recepiecalory WHERE "+ where;
                 MySqlDataReader reader = sqlCommand.ExecuteReader();

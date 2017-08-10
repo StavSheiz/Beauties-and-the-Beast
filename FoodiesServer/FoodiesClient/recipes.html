@@ -38,9 +38,13 @@
             <div class="modal-content">
                 <h4>Categories</h4>
                 <form action="#">
-                    <label ng-repeat="n in categories" class="categorytext" for="{{n.Name}}">
-                       <input type="radio" id="{{n.Name}}" class="filled-in" name="category" ng-model="currentFilter" /> {{n.Name}}
-                    </label>
+                    <!-- <label  class="categorytext" for="{{n.Name}}">
+                       <input type="radio" id="{{n.Name}}"  name="category" ng-model="currentFilter" /> {{n.Name}}
+                    </label> -->
+                    <p ng-repeat="n in categories">
+                    <input name="group1" type="radio" class="filled-in" ng-mode="currentFilter" ng-click="getRecepiesByFilter(n.Id)" ng-value="{{n.Id}}" id="{{n.Name}}" />
+                    <label for="{{n.Name}}">{{n.Name}}</label>
+                    </p>
                 </form>
 
             </div>
