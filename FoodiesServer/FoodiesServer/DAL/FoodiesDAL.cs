@@ -145,7 +145,7 @@ namespace FoodiesServer.DAL
             return u;
         }
 
-        public List<Recepie> GetRecepiesByFilter(RecepieFilter filter)
+        public List<Recepie> GetRecepiesByFilter(RecepieFilter filter, int userId)
         {
             List<Recepie> lstRes = new List<Recepie>();
             try

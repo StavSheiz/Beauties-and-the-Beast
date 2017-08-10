@@ -80,3 +80,7 @@ addbtn {
 .recipeimage {
     filter: brightness(50%) !important;
 }
+
+.btnloginreg {
+    width: 130px;
+}
