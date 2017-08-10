@@ -5,8 +5,7 @@
  * email: atandrastoth@gmail.com
  * Licensed under the MIT license
  */
-(function(undefined) {
-    "use strict";
+foodiesApp.controller("scannerController", ['$scope', 'foodiesService', function($scope, foodiesService){
 
     function Q(el) {
         if (typeof el === "string") {
@@ -52,7 +51,7 @@
             });
             scannedImg.src = res.imgData;
             scannedQR[txt] = res.code;
-            alert(scannedQR[txt]);
+            $.ajax
         },
         getDevicesError: function(error) {
             var p, message = "Error detected with the following parameters:\n";
@@ -243,4 +242,4 @@
             decoder.stop().play();
         }
     });
-}).call(window.Page = window.Page || {});
+}]);
