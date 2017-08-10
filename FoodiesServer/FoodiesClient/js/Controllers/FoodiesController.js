@@ -37,8 +37,8 @@ angular.module('foodiesController', []).controller('foodiesController', function
        }
     }
 
-    $scope.getRecepiesByFilter = function () {
-        foodiesService.GetRecepiesService($scope.currentFilter, $scope.currentSort).then(function(data){
+    $scope.getRecepiesByFilter = function (filter) {
+        foodiesService.GetRecepiesService(filter, $scope.currentSort).then(function(data){
             $scope.currentRecepies = data.data;
         });
     }

@@ -12,10 +12,13 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
     }
     
      this.GetRecepiesService = function(categoryID, sort){
+         if(!categoryID){
+             categoryID = -1;
+         }
         return $http({
             url: 'http://localhost:63236/Foodies/GetRecepies', 
             method: "GET",
-            params: {CategoryId:-1, Sort:false}
+            params: { CategoryId: categoryID, Sort:false }
         });
   }
      
