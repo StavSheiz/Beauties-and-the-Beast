@@ -44,7 +44,7 @@ namespace FoodiesServer.Contollers
             dal.AddUser(u);
         }
 
-        [HttpPut]
+        [HttpGet]
         public void AddIngredient(string barcode, int userID)
         {
             dal.AddIngridient(barcode, userID);

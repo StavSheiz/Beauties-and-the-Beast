@@ -20,9 +20,8 @@ angular.module('foodiesController', []).controller('foodiesController', function
         $('.modal').modal();
     }
     $scope.getAllIngredients = function () {
-        //if ($scope.currentUser) {
-         //   foodiesService.GetIngredientsService($scope.currentUser.Id).then(function(data){
-        foodiesService.GetIngredientsService(1).then(function(data){
+        if ($scope.currentUser) {
+            foodiesService.GetIngredientsService($scope.currentUser.Id).then(function(data){
                 $scope.allIngredients = data;
             });
         
@@ -58,9 +57,9 @@ angular.module('foodiesController', []).controller('foodiesController', function
         }
     }
 
-    $scope.addIngredient = function () {
-        foodiesService.AddIngredientService().then(function(){
-            $scope.getAllIngredients();
+    $scope.addIngredient = function (barcode) {
+        foodiesService.AddIngredientService(barcode, $scope.currentUser.Id).then(function(){
+            $scope.AddIngredientService(barcode, $scope.currentUser.Id);
         });
     }
 
@@ -78,5 +77,6 @@ angular.module('foodiesController', []).controller('foodiesController', function
     // Controller init
 
     $scope.getAllCategories();
+    }
     
 });
