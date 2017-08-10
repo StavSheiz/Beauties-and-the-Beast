@@ -28,19 +28,22 @@ namespace FoodiesServer.DAL
             List<Ingredient> lstIngs = new List<Ingredient>();
             try
             {
-                sqlConnection.Open();
-                sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE, BARCODE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM usersproducts WHERE USER_ID=" + UserId + ")";
-                MySqlDataReader reader = sqlCommand.ExecuteReader();
-                while (reader.Read())
+                if (sqlConnection.State == System.Data.ConnectionState.Closed)
                 {
-                    int id = reader.GetInt32("ID");
-                    string name = reader.GetString("PRODUCT_NAME");
-                    int calories = reader.GetInt32("CALORIES");
-                    string image = reader.GetString("IMAGE");
-                    //string barcode = reader.GetString("BARCODE");
+                    sqlConnection.Open();
+                    sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE, BARCODE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM usersproducts WHERE USER_ID=" + UserId + ")";
+                    MySqlDataReader reader = sqlCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32("ID");
+                        string name = reader.GetString("PRODUCT_NAME");
+                        int calories = reader.GetInt32("CALORIES");
+                        string image = reader.GetString("IMAGE");
+                        string barcode = reader.GetString("BARCODE");
 
-                    Ingredient i = new Ingredient(id,name,calories,image);
-                    lstIngs.Add(i);
+                        Ingredient i = new Ingredient(id, name, calories, image);
+                        lstIngs.Add(i);
+                    }
                 }
             }
             catch (Exception ex)
@@ -151,6 +154,8 @@ namespace FoodiesServer.DAL
         public List<Recepie> GetRecepiesByFilter(RecepieFilter filter, int userId)
         {
             List<Recepie> lstRes = new List<Recepie>();
+
+            List<Recepie> lstFinalRec = new List<Recepie>();
             try
             {
                 sqlConnection.Open();
@@ -173,6 +178,8 @@ namespace FoodiesServer.DAL
                     res.pictureUrl = pictureUrl;
                     lstRes.Add(res);
                 }
+
+                
             }
             catch (Exception ex)
             {
@@ -183,7 +190,41 @@ namespace FoodiesServer.DAL
                 sqlConnection.Close();
             }
 
-            return lstRes;
+            if (lstRes.Count > 0) {
+                List<Ingredient> lstUserIng = new List<Ingredient>();
+                lstUserIng = GetAllIngredients(userId);
+
+                foreach (Recepie res in lstRes)
+                {
+                    bool ok = false;
+                    List<Ingredient> lstIng = new List<Ingredient>();
+
+                    lstIng = GetAllRecepieIngs(res.Id);
+
+                    foreach (Ingredient ing in lstIng)
+                    {
+                        ok = false;
+                        foreach (Ingredient ingg in lstUserIng)
+                        {
+                            if (ingg.Id== ing.Id)
+                            {
+                                ok = true;
+                            }
+                        }
+
+                        if (!ok) {
+                            break;
+                        }
+                    }
+
+                    if (ok)
+                    {
+                        lstFinalRec.Add(res);
+                    }
+                }
+            }
+
+            return lstFinalRec;
         }
 
         public List<RecepieCatgory> GetAllCategories()
@@ -221,7 +262,7 @@ namespace FoodiesServer.DAL
             try
             {
                 sqlConnection.Open();
-                sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE, BARCODE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM recepyproducts WHERE RECEPY_ID=" + recepieId + ")";
+                sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE, BARCODE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM recepiesproducts WHERE RECEPY_ID=" + recepieId +" )";
                 MySqlDataReader reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
