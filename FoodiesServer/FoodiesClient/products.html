@@ -22,21 +22,21 @@
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a ng-click="go('\products.html')">My Fridge</a></li>
-                <li><a  ng-click="addIngredient('7622010001858')">>Find Recipes</a></li>
-                <li><a href="collapsible.html">New Product</a></li>
+                <li><a ng-click="go('./recipes.html')">Find Recipes</a></li>
+                <li><a ng-click="go('./addProduct.html')">New Product</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
                 <li><a ng-click="go('\products.html')">My Fridge</a></li>
-                <li><a href="badges.html">Find Recipes</a></li>
-                <li><a href="collapsible.html">New Product</a></li>
+                <li><a ng-click="go('./recipes.html')">Find Recipes</a></li>
+                <li><a ng-click="go('./addProduct.html')">New Product</a></li>
             </ul>
         </div>
     </nav>
 
     <div class="container" ng-controller="foodiesController">
         <div class="row" ng-init="getAllIngredients()"></div>
-        <div class="row" ng-repeat="ingre in allIngredients">
-            <div class="col s3 m3">
+        <div class="row">
+            <div class="col s3 m3" ng-repeat="ingre in allIngredients">
                 <div class="card">
                     <div class="card-image">
                         <center><img class="productimage" src="{{ingre.PictureUrl}}"></center>
@@ -51,9 +51,9 @@
             </div>
         </div>
     </div>
-        <div class="fixed-action-btn">
+        <div class="fixed-action-btn" ng-controller="foodiesController">
     <a class="btn-floating btn-large red" >
-      <i class="large material-icons">add</i>
+      <i class="large material-icons" ng-click="go('\addProduct.html')">add</i>
     </a>
   </div>
         
