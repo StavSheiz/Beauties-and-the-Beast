@@ -1,9 +1,8 @@
-angular.module('foodiesController', []).controller('foodiesController', function($scope, $q, foodiesService) {
+angular.module('foodiesController', []).controller('foodiesController', function($scope, $window, foodiesService) {
 
     // App section
     $scope.currentUser = null;
     $scope.allIngredients = [];
-    $scope.currentPage = 0;
 
     // Register page
     $scope.registerName = '';
@@ -17,13 +16,16 @@ angular.module('foodiesController', []).controller('foodiesController', function
 
     // Scope functions
 
+    $scope.initModals = function () {
+        $('.modal').modal();
+    }
     $scope.getAllIngredients = function () {
-        if ($scope.currentUser) {
-            foodiesService.GetIngredientsService($scope.currentUser.Id).then(function(data){
+        //if ($scope.currentUser) {
+         //   foodiesService.GetIngredientsService($scope.currentUser.Id).then(function(data){
+        foodiesService.GetIngredientsService(1).then(function(data){
                 $scope.allIngredients = data;
-                $scope.currentPage = 2;
             });
-        }
+        
     }
 
     $scope.attemptLogin = function () {
@@ -31,22 +33,20 @@ angular.module('foodiesController', []).controller('foodiesController', function
             foodiesService.ConnectUserService($scope.registerName, $scope.registerPassword).then(function(data){
                 if (data) {
                     $scope.currentUser = data;
-                    $scope.currentPage = 1;
                 }
             });
-        }
+       }
     }
 
     $scope.getRecepiesByFilter = function () {
         foodiesService.GetRecepiesService($scope.currentFilter, $scope.currentSort).then(function(data){
-            $scope.currentRecepies = data;
-            $scope.currentPage = 3;
+            $scope.currentRecepies = data.data;
         });
     }
 
     $scope.getAllCategories = function () {
         foodiesService.GetCategoriesService().then(function(data){
-            $scope.categories = data;
+            $scope.categories = data.data;
         });
     }
 
@@ -62,6 +62,16 @@ angular.module('foodiesController', []).controller('foodiesController', function
         foodiesService.AddIngredientService().then(function(){
             $scope.getAllIngredients();
         });
+    }
+
+    $scope.getRecepieIngs = function (recepieId) {
+        foodiesService.GetRecepieIngs(recepieId).then(function(data){
+            $scope.recepieIngs = data;
+        });
+    }
+    
+    $scope.go = function (path) {
+        $window.location.href = path;
     }
     
     

@@ -9,10 +9,14 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/recipe-example.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script src="js/Modules/FoodiesModule.js"></script>
+     <script src="js/Services/FoodiesService.js"></script>
+     <script src="js/Controllers/FoodiesController.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body>
+<body ng-app="foodiesApp" ng-controller="foodiesController" ng-init="getRecepiesByFilter()">
     <nav>
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo logobar"><img src="images/logo.png" class="bottom-40 logobar" alt="GloriaFood Logo"></a>
@@ -34,16 +38,9 @@
             <div class="modal-content">
                 <h4>Categories</h4>
                 <form action="#">
-                    <input type="checkbox" class="filled-in" id="Vegan" checked="checked" />
-                    <label for="Vegan" class="categorytext">Vegan</label>
-                    <input type="checkbox" class="filled-in" id="Sweet" checked="checked" />
-                    <label for="Sweet" class="categorytext">Sweet</label>
-                    <input type="checkbox" class="filled-in" id="Salty" checked="checked" />
-                    <label for="Salty" class="categorytext">Salty</label>
-                    <input type="checkbox" class="filled-in" id="Healthy" checked="checked" />
-                    <label for="Healthy" class="categorytext">Healthy</label>
-
-
+                    <label ng-repeat="n in categories" class="categorytext" for="{{n.Name}}">
+                       <input type="radio" id="{{n.Name}}" class="filled-in" name="category" ng-model="currentFilter" /> {{n.Name}}
+                    </label>
                 </form>
 
             </div>
@@ -61,27 +58,27 @@
         <div class="row"></div>
 
         <div class="row">
-            <div class="col s3 m3">
-                <div class="card">
+            <div ng-repeat="card in currentRecepies" class="col s3 m3">
+                <div class="card" ng-init="initModals()">
                     <div class="card-image">
-                        <center><img class="productimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC"></center>
+                        <center><img class="productimage" src={{card.pictureUrl}}></center>
                     </div>
                     <center>
                         <div class="card-content">
-                            <span class="card-title">Salad</span>
-                            <p><b>calories:</b> 100</p>
+                            <span class="card-title">{{card.Name}}</span>
+                            <p><b>calories:</b>{{card.Calories}}</p>
                             <br>
                             <!-- Modal Trigger -->
-                            <a class="waves-effect waves-light btn modal-trigger" href="#salad1">Open</a>
+                            <a class="waves-effect waves-light btn modal-trigger" href="#modal{{id}}">Open</a>
 
                             <!-- Modal Structure -->
-                            <div id="salad1" class="modal modal-fixed-footer">
+                            <div id="modal{{id}}" class="modal modal-fixed-footer">
                                 <div class="modal-content">
                                     <center>
-                                        <div class="card">
+                                        <div class="card" ng-init="getRecepieIngs(card.id)">
                                             <div class="card-image">
-                                                <img class="productimage recipeimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC">
-                                                <span class="card-title">Salad</span>
+                                                <img class="productimage recipeimage" ng-src={{card.pictureUrl}}>
+                                                <span class="card-title">{{card.Name}}</span>
                                             </div>
                                         </div>
                                     </center>
@@ -90,124 +87,14 @@
                                     <p>
                                         <b>Ingredients</b>
                                         <ul>
-                                            <li>Tomato</li>
-                                            <li>Cucumber</li>
-                                            <li>Onion</li>
+                                            <li ng-repeat="ing in currentRecepieIngs">{{ing.Name}}</li>
                                         </ul>
                                     </p>
                                     <p>
                                         <b>Procedure</b>
                                         
                                         <br><br>
-                                        Cut all
-                                        <br> Put all in bowl
-                                        <br> Mix
-                                        <br>
-                                    </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red whitetext">Close</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </center>
-                </div>
-            </div>
-            <div class="col s3 m3">
-                <div class="card">
-                    <div class="card-image">
-                        <center><img class="productimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC"></center>
-                    </div>
-                    <center>
-                        <div class="card-content">
-                            <span class="card-title">Salad</span>
-                            <p><b>calories:</b> 100</p>
-                            <br>
-                            <!-- Modal Trigger -->
-                            <a class="waves-effect waves-light btn modal-trigger" href="#salad2">Open</a>
-
-                            <!-- Modal Structure -->
-                            <div id="salad2" class="modal modal-fixed-footer">
-                                <div class="modal-content">
-                                    <center>
-                                        <div class="card">
-                                            <div class="card-image">
-                                                <img class="productimage recipeimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC">
-                                                <span class="card-title">Salad</span>
-                                            </div>
-                                        </div>
-                                    </center>
-
-
-                                    <p>
-                                        <b>Ingredients</b>
-                                        <ul>
-                                            <li>Tomato</li>
-                                            <li>Cucumber</li>
-                                            <li>Onion</li>
-                                        </ul>
-                                    </p>
-                                    <p>
-                                        <b>Procedure</b>
-                                        
-                                        <br><br>
-                                        Cut all
-                                        <br> Put all in bowl
-                                        <br> Mix
-                                        <br>
-                                    </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red whitetext">Close</a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </center>
-                </div>
-            </div>
-            <div class="col s3 m3">
-                <div class="card">
-                    <div class="card-image">
-                        <center><img class="productimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC"></center>
-                    </div>
-                    <center>
-                        <div class="card-content">
-                            <span class="card-title">Salad</span>
-                            <p><b>calories:</b> 100</p>
-                            <br>
-                            <!-- Modal Trigger -->
-                            <a class="waves-effect waves-light btn modal-trigger" href="#salad3">Open</a>
-
-                            <!-- Modal Structure -->
-                            <div id="salad3" class="modal modal-fixed-footer">
-                                <div class="modal-content">
-                                    <center>
-                                        <div class="card">
-                                            <div class="card-image">
-                                                <img class="productimage recipeimage" src="https://www.oregoncc.org/sites/default/files/styles/content_image/public/Garden%20Salad.jpg?itok=MwnociMC">
-                                                <span class="card-title">Salad</span>
-                                            </div>
-                                        </div>
-                                    </center>
-
-
-                                    <p>
-                                        <b>Ingredients</b>
-                                        <ul>
-                                            <li>Tomato</li>
-                                            <li>Cucumber</li>
-                                            <li>Onion</li>
-                                        </ul>
-                                    </p>
-                                    <p>
-                                        <b>Procedure</b>
-                                        
-                                        <br><br>
-                                        Cut all
-                                        <br> Put all in bowl
-                                        <br> Mix
+                                        <div>{{card.Text}}</div>
                                         <br>
                                     </p>
                                 </div>

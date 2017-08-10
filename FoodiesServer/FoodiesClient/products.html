@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -9,29 +9,33 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <script type="text/javascript" src="js/angular.min.js"></script>
+     <script src="js/Modules/FoodiesModule.js"></script>
+     <script src="js/Services/FoodiesService.js"></script>
+     <script src="js/Controllers/FoodiesController.js"></script>
 </head>
 
-<body>
+<body ng-app="foodiesApp">
     <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper" ng-controller="foodiesController">
             <a href="#!" class="brand-logo logobar"><img src="images/logo.png" class="bottom-40 logobar" alt="GloriaFood Logo"></a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html">My Fridge</a></li>
+                <li><a ng-click="go('\products.html')">My Fridge</a></li>
                 <li><a href="badges.html">Find Recipes</a></li>
                 <li><a href="collapsible.html">New Product</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
-                <li><a href="sass.html">My Fridge</a></li>
+                <li><a ng-click="go('\products.html')">My Fridge</a></li>
                 <li><a href="badges.html">Find Recipes</a></li>
                 <li><a href="collapsible.html">New Product</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container" ng-controller="foodiesController">
         <div class="row"></div>
-        <div class="row">
+        <div class="row" ng-repeat="ingre in allIngredients">
             <div class="col s3 m3">
                 <div class="card">
                     <div class="card-image">
@@ -39,38 +43,13 @@
                         <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
                     </div>
                     <center><div class="card-content">
-                        <span class="card-title">Flour</span>
-                        <p><b>calories:</b> 100</p>
-                    </div>
-                    </center>
-                </div>
-            </div><div class="col s3 m3">
-                <div class="card">
-                    <div class="card-image">
-                        <center><img class="productimage" src="http://blog.tapuz.co.il/matanot10/images/3193451_1459.jpg"></center>
-                        <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
-                    </div>
-                    <center><div class="card-content">
-                        <span class="card-title">Flour</span>
-                        <p><b>calories:</b> 100</p>
-                    </div>
-                    </center>
-                </div>
-            </div><div class="col s3 m3">
-                <div class="card">
-                    <div class="card-image">
-                        <center><img class="productimage" src="http://blog.tapuz.co.il/matanot10/images/3193451_1459.jpg"></center>
-                        <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
-                    </div>
-                    <center><div class="card-content">
-                        <span class="card-title">Flour</span>
-                        <p><b>calories:</b> 100</p>
+                        <span class="card-title">{{ingre.Name}}</span>
+                        <p><b>calories:</b>{{ingre.Calories}}</p>
                     </div>
                     </center>
                 </div>
             </div>
         </div>
-
     </div>
         <div class="fixed-action-btn">
     <a class="btn-floating btn-large red">

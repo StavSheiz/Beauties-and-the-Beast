@@ -29,5 +29,9 @@ namespace FoodiesServer.Models
         public string Text { get; set; }
         [DataMember]
         public List<Ingredient> Ingredients { get; set; }
+        [DataMember]
+        public int Calories { get; set; }
+        [DataMember]
+        public string pictureUrl { get; set; }
     }
 }

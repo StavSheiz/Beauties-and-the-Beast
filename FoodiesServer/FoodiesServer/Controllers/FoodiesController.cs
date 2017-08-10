@@ -45,16 +45,21 @@ namespace FoodiesServer.Contollers
         }
 
         [HttpPut]
-        public void AddIngredient(int id, string name, string pictureUrl, int calories, int userId)
+        public void AddIngredient(string barcode, int userID)
         {
-            Ingredient ing = new Ingredient(id, name, calories, pictureUrl);
-            dal.AddIngridient(ing, userId);
+            dal.AddIngridient(barcode, userID);
         }
 
         [HttpGet]
         public IEnumerable<RecepieCatgory> GetAllCategories()
         {
             return dal.GetAllCategories();
+        }
+
+        [HttpGet]
+        public List<Ingredient> GetAllRecepieIngs(int recepieId)
+        {
+            return dal.GetAllRecepieIngs(recepieId);
         }
     }
 }

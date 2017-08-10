@@ -1,9 +1,13 @@
 angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', function ($http, $q) {
     this.GetIngredientsService = function(userID){
       return $http({
-            url: 'http://localhost:63236/Foodies/AddIngredient', 
+            url: 'http://localhost:63236/Foodies/GetAllIngredients', 
             method: "GET",
-            params: {UserID: userID}
+            params: {UserId: userID}
+      })
+        .then(function (response, status) {
+            // The return value gets picked up by the then in the controller.
+            return $q.resolve(response);
         });
     }
     
@@ -11,7 +15,7 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
         return $http({
             url: 'http://localhost:63236/Foodies/GetRecepies', 
             method: "GET",
-            params: {CategotyId:categoryID, Sort:sort}
+            params: {CategoryId:-1, Sort:false}
         });
   }
      
@@ -33,14 +37,22 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
        );
     }
      
-      this.AddIngredientService = function(ID, Name, PictureURL, Calories, UserID){
+      this.AddIngredientService = function(barcode){
       $http.put('http://localhost:63236/Foodies/AddIngredient',                                     
           {},                                          
-          { params: { id: ID, name: Name, pictureUrl: PictureURL, calories: Calories, userId: UserID} }   
+          { params: { barcode: barcode} }   
        );
     }
       
        this.GetCategoriesService = function(){        
         return ($http.get('http://localhost:63236/Foodies/GetAllCategories'));
+   }
+
+   this.GetRecepieIngs = function(recepieId){
+        return $http({
+            url: 'http://localhost:63236/Foodies/GetAllRecepieIngs', 
+            method: "GET",
+            params: {recepieId: recepieId}
+        });
    }
 }]);
