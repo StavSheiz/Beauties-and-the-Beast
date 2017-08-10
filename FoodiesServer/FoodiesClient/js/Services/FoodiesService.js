@@ -1,14 +1,10 @@
 angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', function ($http, $q) {
-    this.GetIngredientsService = function(userID){
+    this.GetIngredientsService = function(){
       return $http({
             url: 'http://localhost:63236/Foodies/GetAllIngredients/', 
             method: "GET",
-            params: {UserID: userID}
-      })
-        .then(function (response, status) {
-            // The return value gets picked up by the then in the controller.
-            return $q.resolve(response.data);
-        });
+            params: {UserID: 1}
+      });
     }
     
      this.GetRecepiesService = function(categoryID, sort){
@@ -18,7 +14,7 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
         return $http({
             url: 'http://localhost:63236/Foodies/GetRecepies', 
             method: "GET",
-            params: { CategoryId: categoryID, Sort:false }
+            params: { CategoryId: categoryID, Sort:false, userId: 1 }
         });
   }
      
@@ -27,11 +23,17 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
             userName : UserName,
             password : Password
         };
-        return $http({
+        var q =  $http({
             url: 'http://localhost:63236/Foodies/AttemptLogin', 
             method: "GET",
             params: {userName: UserName, password: Password}
         });
+
+        q.then(function(data){
+            this.user = data.data;
+        }, this);
+
+        return q;
   }
      this.AddUserService = function(UserName, Password){
       return $http.put('http://localhost:63236/Foodies/AddUser',                                     
@@ -43,7 +45,7 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
       this.AddIngredientService = function(barcode, userId){
       $http.put('http://localhost:63236/Foodies/AddIngredient',                                     
           {},                                          
-          { params: { barcode: barcode, userID: userId} }   
+          { params: { barcode: barcode, userID: 1} }   
        );
     }
       

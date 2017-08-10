@@ -37,9 +37,9 @@ namespace FoodiesServer.DAL
                     string name = reader.GetString("PRODUCT_NAME");
                     int calories = reader.GetInt32("CALORIES");
                     string image = reader.GetString("IMAGE");
-                    string barcode = reader.GetString("BARCODE");
+                    //string barcode = reader.GetString("BARCODE");
 
-                    Ingredient i = new Ingredient(id,name,calories,image, barcode);
+                    Ingredient i = new Ingredient(id,name,calories,image);
                     lstIngs.Add(i);
                 }
             }
@@ -151,7 +151,7 @@ namespace FoodiesServer.DAL
             try
             {
                 sqlConnection.Open();
-                string where = "recepiecalory.RECEPY_ID = recepies.ID";
+                string where = "recepiecalory.RECEPY_ID = recepies.ID ";
                 if (filter.FilterByCategory != -1) {
                     where += " AND recepies.ID IN (SELECT RECEPY_ID FROM recepycategory WHERE CATEGORY_ID=" + filter.FilterByCategory + ")";
                 }

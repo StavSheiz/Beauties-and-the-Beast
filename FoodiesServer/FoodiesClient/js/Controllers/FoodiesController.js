@@ -1,5 +1,4 @@
 angular.module('foodiesController', []).controller('foodiesController', function($scope, $window, foodiesService) {
-
     // App section
     $scope.currentUser = null;
     $scope.allIngredients = [];
@@ -20,9 +19,8 @@ angular.module('foodiesController', []).controller('foodiesController', function
         $('.modal').modal();
     }
     $scope.getAllIngredients = function () {
-        if ($scope.currentUser) {
-            foodiesService.GetIngredientsService($scope.currentUser.Id).then(function(data){
-                $scope.allIngredients = data;
+            foodiesService.GetIngredientsService().then(function(data){
+                $scope.allIngredients = data.data;
             });
         
     }
@@ -31,7 +29,8 @@ angular.module('foodiesController', []).controller('foodiesController', function
         if ($scope.registerName.length > 0 && $scope.registerPassword.length > 0) {
             foodiesService.ConnectUserService($scope.registerName, $scope.registerPassword).then(function(data){
                 if (data) {
-                    $scope.currentUser = data;
+                    $scope.currentUser = data.data;
+                    $window.location.href = './homepage.html'
                 }
             });
        }
@@ -77,19 +76,15 @@ angular.module('foodiesController', []).controller('foodiesController', function
     // Controller init
 
     $scope.getAllCategories();
-    }
-    
 
-    // Camera
-
-    $scope.initCamera = function(){
-          function Q(el) {
+    $scope.initCamera= function(){
+function Q(el) {
         if (typeof el === "string") {
             var els = document.querySelectorAll(el);
             return typeof els === "undefined" ? undefined : els.length > 1 ? els : els[0];
         }
         return el;
-    }
+          }
     var txt = "innerText" in HTMLElement.prototype ? "innerText" : "textContent";
     var scannerLaser = Q(".scanner-laser"),
         imageUrl = new Q("#image-url"),

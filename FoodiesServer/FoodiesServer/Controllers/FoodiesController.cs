@@ -12,6 +12,7 @@ namespace FoodiesServer.Contollers
     public class FoodiesController : ApiController
     {
         private FoodiesDAL dal;
+        private User usr;
 
         public FoodiesController()
         {
@@ -24,17 +25,18 @@ namespace FoodiesServer.Contollers
         }
 
         [HttpGet]
-        public List<Recepie> GetRecepies(int CategoryId, bool Sort)
+        public List<Recepie> GetRecepies(int CategoryId, bool Sort, int userId)
         {
             RecepieFilter filter = new RecepieFilter(CategoryId, Sort);
-            return dal.GetRecepiesByFilter(filter);
+            return dal.GetRecepiesByFilter(filter, userId);
         }
 
         [HttpGet]
         public User AttemptLogin(string userName, string password)
         {
             User u = new User(userName, password);
-            return dal.AttemptLogin(u);
+            this.usr = dal.AttemptLogin(u);
+            return usr;
         }
 
         [HttpPut]

@@ -37,35 +37,35 @@
             <div class="col s3"></div>
             <div class="col s2">
                 <row>
-                    <center><a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">shopping_cart</i></a></center>
+                    <center><a class="btn-floating btn-large waves-effect waves-light red" ng-click="go('./products.html')"><i class="material-icons">shopping_cart</i></a></center>
                 </row>
             </div>
             <div class="col s2">
-                <center><a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">restaurant</i></a></center>
+                <center><a class="btn-floating btn-large waves-effect waves-light red" ng-click="go('./recipes.html')"><i class="material-icons">restaurant</i></a></center>
             </div>
             <div class="col s2">
-                <center><a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a></center>
+                <center><a class="btn-floating btn-large waves-effect waves-light red" ng-click="go('\addProduct.html')"><i class="material-icons">add</i></a></center>
             </div>
         </div>
         <div class="row" ng-controller="foodiesController">
             <div class="col s3"></div>
             <div class="col s2">
                 <center>
-                    <div class="tooltip" ng-click="go('\products')">
+                    <div class="tooltip" >
                         <span class="tooltiptext">My Fridge</span>
                     </div>
                 </center>
             </div>
             <div class="col s2">
                 <center>
-                    <div class="tooltip" ng-click="go('\recipes')">
+                    <div class="tooltip" >
                         <span class="tooltiptext">Find Recipes</span>
                     </div>
                 </center>
             </div>
             <div class="col s2">
                 <center>
-                    <div class="tooltip" ng-click="go('\addProduct')">
+                    <div class="tooltip" >
                         <span class="tooltiptext">New Product</span>
                     </div>
                 </center>

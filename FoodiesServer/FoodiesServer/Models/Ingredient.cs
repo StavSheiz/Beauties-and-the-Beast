@@ -24,6 +24,16 @@ namespace FoodiesServer.Models
             this.Barcode = barcode;
         }
 
+
+        public Ingredient(int id, string name, int calories, string pictureUrl)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Calories = calories;
+            this.PictureUrl = pictureUrl;
+            //this.Barcode = barcode;
+        }
+
         [DataMember]
         public int Id { get; set; }
         [DataMember]
