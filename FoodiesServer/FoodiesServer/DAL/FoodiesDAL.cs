@@ -29,7 +29,7 @@ namespace FoodiesServer.DAL
             try
             {
                 sqlConnection.Open();
-                sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE, BARCODE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM userproducts WHERE USER_ID=" + UserId + ")";
+                sqlCommand.CommandText = "SELECT ID, PRODUCT_NAME, CALORIES, IMAGE, BARCODE FROM products WHERE ID IN (SELECT PRODUCT_ID FROM usersproducts WHERE USER_ID=" + UserId + ")";
                 MySqlDataReader reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
@@ -61,31 +61,34 @@ namespace FoodiesServer.DAL
             try
             {
                 Ingredient ing;
-                sqlConnection.Open();
-                sqlCommand.CommandText = "SELECT * FROM products WHERE BARCODE=" + barcode;
-                MySqlDataReader reader = sqlCommand.ExecuteReader();
-                if (!reader.HasRows)
+                if (sqlConnection.State == System.Data.ConnectionState.Closed)
                 {
-                    ing = GetIngridientForBarcode(barcode);
+                    sqlConnection.Open();
+                    sqlCommand.CommandText = "SELECT * FROM products WHERE BARCODE=" + barcode;
+                    MySqlDataReader reader = sqlCommand.ExecuteReader();
+                    if (!reader.HasRows)
+                    {
+                        ing = GetIngridientForBarcode(barcode);
 
-                    sqlCommand.CommandText = "INSERT INTO products (ID,PRODUCT_NAME,CALORIES,BARCODE,IMAGE) VALUES(" + ing.Id + "," + ing.Name + "," + ing.Calories + "," + ing.Barcode + "" + ing.PictureUrl + ")";
+                        sqlCommand.CommandText = "INSERT INTO products (ID,PRODUCT_NAME,CALORIES,BARCODE,IMAGE) VALUES(" + ing.Id + "," + ing.Name + "," + ing.Calories + "," + ing.Barcode + "" + ing.PictureUrl + ")";
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        reader.Read();
+                        int id = reader.GetInt32("ID");
+                        string name = reader.GetString("PRODUCT_NAME");
+                        int calories = reader.GetInt32("CALORIES");
+                        string image = reader.GetString("IMAGE");
+                        reader.Close();
+                        ing = new Ingredient(id, name, calories, image, barcode);
+                    }
+
+                    sqlCommand.CommandText = "INSERT INTO usersproducts (PRODUCT_ID, USER_ID) VALUES(" + ing.Id + "," + userId + ")";
                     sqlCommand.ExecuteNonQuery();
                 }
-                else
-                {
-                    reader.Read();
-                    int id = reader.GetInt32("ID");
-                    string name = reader.GetString("PRODUCT_NAME");
-                    int calories = reader.GetInt32("CALORIES");
-                    string image = reader.GetString("IMAGE");
-
-                    ing = new Ingredient(id, name, calories, image, barcode);
-                }
-
-                sqlCommand.CommandText = "INSERT INTO userproducts (PRODUCT_ID, USER_ID) VALUES(" + ing.Id + "," + userId + ")";
-                sqlCommand.ExecuteNonQuery();
             }
-            catch { }
+            catch (Exception ex){ }
             finally
             {
                 sqlConnection.Close();

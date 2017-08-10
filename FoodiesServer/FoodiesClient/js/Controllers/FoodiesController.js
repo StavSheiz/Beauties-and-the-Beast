@@ -122,7 +122,7 @@ function Q(el) {
             });
             scannedImg.src = res.imgData;
             scannedQR[txt] = res.code;
-            foodiesService.AddIngredientService(scannedQR[txt], $scope.currentUser.Id);
+            foodiesService.AddIngredientService(scannedQR[txt], 1);
         },
         getDevicesError: function(error) {
             var p, message = "Error detected with the following parameters:\n";

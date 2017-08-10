@@ -43,10 +43,11 @@ angular.module('foodiesService', []).service('foodiesService', ['$http', '$q', f
     }
      
       this.AddIngredientService = function(barcode, userId){
-      $http.put('http://localhost:63236/Foodies/AddIngredient',                                     
-          {},                                          
-          { params: { barcode: barcode, userID: 1} }   
-       );
+        return $http({
+            url: 'http://localhost:63236/Foodies/AddIngredient', 
+            method: "GET",
+            params: {barcode: barcode, userID: 1}
+        });
     }
       
        this.GetCategoriesService = function(){        
